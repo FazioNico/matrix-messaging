@@ -1,16 +1,31 @@
-<ion-content>
-  <p>chat-page works!</p>
-  <ion-item>
-    <ion-textarea 
-      placeholder="message" 
-      type="text"
-      #inputEl 
-      (keyup.enter)="addMsg(inputEl)"></ion-textarea>
-  </ion-item>
-  <br/>
-  <ul *ngIf="msgs$|async as msgs">
-    <li *ngFor="let m of msgs">
+<ion-content #content class="ion-no-padding">
+  <ion-list *ngIf="msgs$|async as msgs">
+    <ion-item *ngFor="let m of msgs">
       <pre>{{m|json}}</pre>
-    </li>
-  </ul>
+    </ion-item>
+  </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-toolbar> 
+    <!-- <ion-buttons slot="start" [hidden]="isEmojiPickerVisible === false">
+      <ion-button #btnEmoji [disabled]="loading" (click)="actions('emojy_picker', btnEmoji)">
+        <ion-icon [color]="(!picker.isPickerVisible()) ? 'medium' : 'primary'" *ngIf="!picker.isPickerVisible()" src="./assets/chat/svg/emoji.svg"></ion-icon>
+        <ion-icon [color]="(!picker.isPickerVisible()) ? 'medium' : 'primary'"  *ngIf="picker.isPickerVisible()" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>   -->
+    <ion-textarea 
+        type="text"
+        inputmode="text"
+        rows="1"
+        placeholder="Write a message"
+        autoresize
+        #textarea 
+        (keydown.enter)="$event.preventDefault();actions('sendMsg', textarea)"></ion-textarea>
+    <ion-buttons slot="end">
+      <ion-button [disabled]="(textarea?.value?.length||0) <= 0" (click)="actions('sendMsg', textarea)">
+        <ion-icon [color]="((textarea?.value?.length||0) <= 0) ? 'medium' : 'primary'" name="send"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

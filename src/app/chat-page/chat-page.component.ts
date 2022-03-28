@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, IonTextarea } from '@ionic/angular';
+import { AlertController, IonContent, IonTextarea } from '@ionic/angular';
+import { map, tap } from 'rxjs';
 import { MatrixService } from '../services/matrix.service';
 
 @Component({
@@ -10,7 +11,10 @@ import { MatrixService } from '../services/matrix.service';
 })
 export class ChatPageComponent implements OnInit {
 
-  public msgs$ = this._client.msgs$;
+  public msgs$ = this._client.msgs$.pipe(
+    tap(() => this._scrollDown())
+  );
+  @ViewChild('content', { static: true }) content!: IonContent;
 
   constructor(
     private readonly _route: ActivatedRoute,
@@ -52,7 +56,15 @@ export class ChatPageComponent implements OnInit {
       });
   }
 
-  async addMsg(textarea: IonTextarea) {
+  async actions(type: string, payload: any) {
+    switch (true) {
+      case type === 'sendMsg':
+        await this.sendMsg(payload);
+        break;
+    }
+  }
+
+  private async sendMsg(textarea: IonTextarea) {
     const msg = textarea.value;
     if (!msg) {
       throw new Error('No message');
@@ -62,4 +74,8 @@ export class ChatPageComponent implements OnInit {
     textarea.value = '';
   }
 
+  private async _scrollDown() {
+    console.log('scroll down');    
+    setTimeout(async() => await this.content.scrollToBottom(200),5)
+  }
 }

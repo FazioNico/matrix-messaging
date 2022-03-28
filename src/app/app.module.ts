@@ -12,9 +12,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RoomsPageComponent } from './rooms-page/rooms-page.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { IonicModule } from '@ionic/angular';
+import { TextareaAutoresizeDirective } from './directives/textarea-autoresize.directive';
 
 @NgModule({
   declarations: [
+    TextareaAutoresizeDirective,
     AppComponent,
     LoginPageComponent,
     RoomsPageComponent,

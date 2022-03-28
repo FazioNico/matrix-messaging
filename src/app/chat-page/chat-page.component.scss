@@ -1,0 +1,15 @@
+:host {
+
+  ion-textarea {
+    width: 100%!important;
+    --width: 100%!important;
+    --padding-top: 0px!important;
+  }
+  textarea::-webkit-scrollbar {
+    display: none;
+  }
+  ion-toolbar {
+    --background: transparent;
+  }
+
+}

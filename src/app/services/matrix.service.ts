@@ -45,7 +45,13 @@ export class MatrixService {
       // console.log(event.getType());
       if (event.getType() === 'm.room.message') {
         console.log(event);
-        this._msgs$.value.push(event);
+        const msgs = this._msgs$.getValue();
+        msgs.push({
+          body: event.getContent().body, 
+          sender: event.getSender(),
+          roomId: event.getRoomId(),
+        });
+        this._msgs$.next(msgs);
       }
     });
   }
