@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, IonContent, IonTextarea } from '@ionic/angular';
-import { filter, map, pluck, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { MatrixService } from '../services/matrix.service';
 
 @Component({
@@ -44,7 +44,7 @@ export class ChatPageComponent implements OnInit {
           destinationUrl = url;
           return ' the new tab opened.' //  `<a href="${url}" target="_blank">${url}</a>`;
         });
-    
+        // show alert with error message
         const ionAlert = await this._alertCtrl.create({
           header: 'Terms of service',
           message,
