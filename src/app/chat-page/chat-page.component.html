@@ -1,12 +1,16 @@
-<p>chat-page works!</p>
-<input 
-    placeholder="message" 
-    type="text"
-    #inputEl 
-    (keyup.enter)="addMsg(inputEl.value)" /> 
-<br/>
-<ul *ngIf="msgs$|async as msgs">
-  <li *ngFor="let m of msgs">
-    <pre>{{m|json}}</pre>
-  </li>
-</ul>
+<ion-content>
+  <p>chat-page works!</p>
+  <ion-item>
+    <ion-textarea 
+      placeholder="message" 
+      type="text"
+      #inputEl 
+      (keyup.enter)="addMsg(inputEl)"></ion-textarea>
+  </ion-item>
+  <br/>
+  <ul *ngIf="msgs$|async as msgs">
+    <li *ngFor="let m of msgs">
+      <pre>{{m|json}}</pre>
+    </li>
+  </ul>
+</ion-content>

@@ -5,9 +5,7 @@
 export const environment = {
   production: false,
   matrixConfig: {
-    userId: '@fazionico:matrix.org',
     baseUrl: "https://matrix.org",
-    accessToken: 'syt_ZmF6aW9uaWNv_oAInXZOnyQlkywUjZibT_4YxzKR'
   }
 };
 

@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   matrixConfig: {
-    access_token: 'syt_ZmF6aW9uaWNv_oAInXZOnyQlkywUjZibT_4YxzKR'
+    baseUrl: 'https://matrix.org',
   }
 };
 
