@@ -1,0 +1,6 @@
+<p>rooms-page works!</p>
+<ul *ngIf="rooms">
+  <li *ngFor="let r of rooms">
+    <a [routerLink]="['/r', r.roomId]">{{r.roomId}}</a>
+  </li>
+</ul>

@@ -51,3 +51,12 @@ import 'zone.js';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+// allow node crypto library to be used in browser
+if (window && (window as any).global === undefined) {
+  console.log('window.global is undefined');
+  (window as any).global = window;
+  (window as any).global.process = {
+    env: { DEBUG: undefined }
+  } as any;
+}

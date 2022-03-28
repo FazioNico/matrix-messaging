@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  matrixConfig: {
+    userId: '@fazionico:matrix.org',
+    baseUrl: "https://matrix.org",
+    accessToken: 'syt_ZmF6aW9uaWNv_oAInXZOnyQlkywUjZibT_4YxzKR'
+  }
 };
 
 /*
