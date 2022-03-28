@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, IonContent, IonTextarea } from '@ionic/angular';
-import { map, tap } from 'rxjs';
+import { filter, map, pluck, tap } from 'rxjs';
 import { MatrixService } from '../services/matrix.service';
 
 @Component({
@@ -11,10 +11,13 @@ import { MatrixService } from '../services/matrix.service';
 })
 export class ChatPageComponent implements OnInit {
 
-  public msgs$ = this._client.msgs$.pipe(
+  @ViewChild('content', { static: true }) public readonly content!: IonContent;
+  public readonly msgs$ = this._client.msgs$.pipe(
+    map(msgs => msgs.filter(
+      (msg) => msg.roomId === this._route.snapshot.paramMap.get('roomId'))
+    ),
     tap(() => this._scrollDown())
   );
-  @ViewChild('content', { static: true }) content!: IonContent;
 
   constructor(
     private readonly _route: ActivatedRoute,
@@ -51,8 +54,10 @@ export class ChatPageComponent implements OnInit {
         await ionAlert.onDidDismiss();
         if (destinationUrl) {
           window.open(destinationUrl, '_blank');
+          this._router.navigate(['/r']);
+        } else {
+          this._router.navigate(['/']);
         }
-        this._router.navigate(['/r']);
       });
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatrixService } from '../services/matrix.service';
 
 @Component({
@@ -11,10 +12,11 @@ export class RoomsPageComponent implements OnInit {
   rooms: any[] = [];
   constructor(
     private readonly _client: MatrixService,
+    private readonly _router: Router
   ) { }
 
   async ngOnInit() {
-    this.rooms = await this._client.getRooms();
+    this.rooms = await this._client.getRooms()
   }
 
 }
