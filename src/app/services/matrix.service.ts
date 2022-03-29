@@ -84,6 +84,7 @@ export class MatrixService {
           content: event.getContent(), 
           sender: event.getSender(),
           roomId: event.getRoomId(),
+          localTimestamp: event.localTimestamp,
         });
         this._msgs$.next(msgs);
       }
