@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { createClient, MatrixClient, SERVICE_TYPES } from 'matrix-js-sdk';
+import { createClient, MatrixClient, MatrixEvent, EventType } from 'matrix-js-sdk';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -75,13 +75,13 @@ export class MatrixService {
     //   this._client.getAccessToken(),
     //   []
     // );
-    this._client.on("event" as any, (event) =>{
+    this._client.on("event" as any, (event: MatrixEvent) =>{
       // console.log(event.getType());
-      if (event.getType() === 'm.room.message') {
+      if (event.getType() === EventType.RoomMessage) {
         console.log(event);
         const msgs = this._msgs$.getValue();
         msgs.push({
-          body: event.getContent().body, 
+          content: event.getContent(), 
           sender: event.getSender(),
           roomId: event.getRoomId(),
         });
