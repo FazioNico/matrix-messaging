@@ -14,10 +14,11 @@ export class ChatPageComponent implements OnInit {
   @ViewChild('content', { static: true }) public readonly content!: IonContent;
   public readonly msgs$ = this._client.msgs$.pipe(
     map(msgs => msgs.filter(
-      (msg) => msg.roomId === this._route.snapshot.paramMap.get('roomId'))
-    ),
+      (msg) => msg.roomId === this._route.snapshot.paramMap.get('roomId')
+    )),
     tap(() => this._scrollDown())
   );
+  public readonly roomId = this._route.snapshot.paramMap.get('roomId');
 
   constructor(
     private readonly _route: ActivatedRoute,
@@ -61,15 +62,21 @@ export class ChatPageComponent implements OnInit {
       });
   }
 
-  async actions(type: string, payload: any) {
+  async actions(type: string, payload?: any) {
     switch (true) {
       case type === 'sendMsg':
         await this.sendMsg(payload);
+        break;
+      case type === 'logout':
+        await this._client.logout();
+        this._router.navigate(['/']);
         break;
     }
   }
 
   private async sendMsg(textarea: IonTextarea) {
+    console.log('sendMsg');
+    
     const msg = textarea.value;
     if (!msg) {
       throw new Error('No message');
@@ -81,6 +88,6 @@ export class ChatPageComponent implements OnInit {
 
   private async _scrollDown() {
     console.log('scroll down');    
-    setTimeout(async() => await this.content.scrollToBottom(200),5)
+    setTimeout(async() => await this.content.scrollToBottom(200),10)
   }
 }

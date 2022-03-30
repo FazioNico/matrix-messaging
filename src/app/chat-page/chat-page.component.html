@@ -3,24 +3,39 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>Chat Room</ion-title>
+    <ion-title>{{roomId}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="actions('logout')">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content #content class="ion-no-padding">
-  <ion-list *ngIf="msgs$|async as msgs">
-    <ion-item *ngFor="let m of msgs">
-      <pre>{{m|json}}</pre>
-    </ion-item>
-  </ion-list>
+  <ion-grid *ngIf="msgs$|async as msgs">
+    <ion-row *ngFor="let m of msgs"  class="ion-justify-content-start ion-padding-bottom">
+      <ion-col size="auto" class="ion-align-self-end ion-padding-end">
+        <ion-avatar>
+          <img title="{{m.sender}}" src="https://api.multiavatar.com/{{m.sender}}.svg">
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="auto" class="ion-align-self-center msgContainer" >
+        <ion-label>
+          {{m.content.body}}
+        </ion-label>
+        <!-- <pre>{{m|json}}</pre> -->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 <ion-footer>
   <ion-toolbar> 
-    <!-- <ion-buttons slot="start" [hidden]="isEmojiPickerVisible === false">
-      <ion-button #btnEmoji [disabled]="loading" (click)="actions('emojy_picker', btnEmoji)">
-        <ion-icon [color]="(!picker.isPickerVisible()) ? 'medium' : 'primary'" *ngIf="!picker.isPickerVisible()" src="./assets/chat/svg/emoji.svg"></ion-icon>
-        <ion-icon [color]="(!picker.isPickerVisible()) ? 'medium' : 'primary'"  *ngIf="picker.isPickerVisible()" name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>   -->
+      <!-- <ion-buttons slot="start" [hidden]="isEmojiPickerVisible === false">
+        <ion-button #btnEmoji [disabled]="loading" (click)="actions('emojy_picker', btnEmoji)">
+          <ion-icon [color]="(!picker.isPickerVisible()) ? 'medium' : 'primary'" *ngIf="!picker.isPickerVisible()" src="./assets/chat/svg/emoji.svg"></ion-icon>
+          <ion-icon [color]="(!picker.isPickerVisible()) ? 'medium' : 'primary'"  *ngIf="picker.isPickerVisible()" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>   -->
     <ion-textarea 
         type="text"
         inputmode="text"

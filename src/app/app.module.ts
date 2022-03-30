@@ -26,7 +26,9 @@ import { TextareaAutoresizeDirective } from './directives/textarea-autoresize.di
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'md'
+    }),
   ],
   providers: [
     {

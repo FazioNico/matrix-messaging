@@ -1,8 +1,24 @@
-<ion-content>
-  <p>rooms-page works!</p>
-  <ul *ngIf="rooms">
-    <li *ngFor="let r of rooms">
-      <a [routerLink]="['/r', r.roomId]">{{r.roomId}}</a>
-    </li>
-  </ul>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Rooms</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="actions('logout')">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-no-padding">
+  <ion-list *ngIf="rooms" class="ion-no-padding ion-no-margin">
+    <ion-item *ngFor="let r of rooms" [routerLink]="['/r', r.roomId]">
+      <ion-label>
+        {{r.roomId}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="ion-margin">
+    <ion-fab-button (click)="actions('addRoom')">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
